@@ -33,7 +33,8 @@ module VagrantPlugins
         end
 
         def add_record(hosted_zone_id, record, type, value)
-          change_record(hosted_zone_id, record, type, value, 'UPSERT')
+          change = change_record(hosted_zone_id, record, type, value, 'UPSERT')
+          wait_for_change(change)
         end
 
         def remove_record(hosted_zone_id, record, type, value)
@@ -63,6 +64,10 @@ module VagrantPlugins
                 ]
               }
           })
+        end
+
+        def wait_for_change(change_response)
+          @route53.wait_until(:resource_record_sets_changed, id: change_response.change_info.id)
         end
       end
     end
