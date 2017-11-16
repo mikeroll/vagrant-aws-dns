@@ -8,8 +8,9 @@ module VagrantPlugins
 
         def call(env)
           super env do |hosted_zone_id, record, type, value|
+            @machine.ui.info("Configuring DNS record...")
             @aws.add_record(hosted_zone_id, record, type, value)
-            @machine.ui.info("Add dns record #{record} pointing to #{value}.")
+            @machine.ui.info("Updated DNS record #{record} to point to #{value}.")
           end
         end
 
