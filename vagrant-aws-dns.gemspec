@@ -4,14 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'vagrant-aws-dns/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "vagrant-aws-dns"
+  spec.name          = "vagrant-aws-dns-synchronous"
   spec.version       = Vagrant::AwsDns::VERSION
   spec.authors       = ["Nassim Kacha"]
   spec.email         = ["nassim.kacha@rea-group.com"]
 
   spec.summary       = %q{A Vagrant plugin that allows you to set up route53 records for instances created using vagrant-aws provider.}
   spec.description   = spec.summary
-  spec.homepage      = "https://github.com/nasskach/vagrant-aws-dns"
+  spec.homepage      = "https://github.com/mikeroll/vagrant-aws-dns"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
