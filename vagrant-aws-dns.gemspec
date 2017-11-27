@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Nassim Kacha"]
   spec.email         = ["nassim.kacha@rea-group.com"]
 
-  spec.summary       = %q{A Vagrant plugin that allows you to set up route53 records for instances created using vagrant-aws provider.}
+  spec.summary       = %q{A Vagrant plugin that allows you to set up route53 records for instances created using vagrant-aws provider. A temporary fork until https://github.com/nasskach/vagrant-aws-dns/pull/9 is merged.}
   spec.description   = spec.summary
   spec.homepage      = "https://github.com/mikeroll/vagrant-aws-dns"
   spec.license       = "MIT"
