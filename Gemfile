@@ -7,5 +7,5 @@ end
 group :plugins do
   gemspec
   gem 'vagrant-aws', '~> 0.7.0'
-#  gem 'vagrant-aws-dns', path: '.'
+#  gem 'vagrant-aws-dns, path: '.'
 end

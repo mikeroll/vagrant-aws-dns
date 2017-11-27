@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'vagrant-aws-dns/version'
+require 'vagrant-aws-dns-synchronous/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "vagrant-aws-dns-synchronous"
