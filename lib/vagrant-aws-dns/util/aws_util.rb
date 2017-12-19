@@ -44,26 +44,31 @@ module VagrantPlugins
         private
 
         def change_record(hosted_zone_id, record, type, value, action='CREATE')
-          @route53.change_resource_record_sets({
-            hosted_zone_id: hosted_zone_id, # required
-              change_batch: {
-                changes: [
-                  {
-                    action: action, # required, accepts CREATE, DELETE, UPSERT
-                    resource_record_set: {
-                      name: record, # required
-                      type: type, # required, accepts SOA, A, TXT, NS, CNAME, MX, PTR, SRV, SPF, AAAA
-                      ttl: 1,
-                      resource_records: [
-                        {
-                          value: value # required
-                        }
-                      ]
+          begin
+            @route53.change_resource_record_sets({
+              hosted_zone_id: hosted_zone_id, # required
+                change_batch: {
+                  changes: [
+                    {
+                      action: action, # required, accepts CREATE, DELETE, UPSERT
+                      resource_record_set: {
+                        name: record, # required
+                        type: type, # required, accepts SOA, A, TXT, NS, CNAME, MX, PTR, SRV, SPF, AAAA
+                        ttl: 1,
+                        resource_records: [
+                          {
+                            value: value # required
+                          }
+                        ]
+                      }
                     }
-                  }
-                ]
-              }
-          })
+                  ]
+                }
+            })
+          rescue Aws::Route53::Errors::PriorRequestNotComplete
+            sleep 1
+            retry
+          end
         end
 
         def wait_for_change(change_response)
