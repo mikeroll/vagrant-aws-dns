@@ -65,7 +65,7 @@ module VagrantPlugins
                   ]
                 }
             })
-          rescue PriorRequestNotComplete => e
+          rescue Aws::Route53::Errors::PriorRequestNotComplete
             sleep 1
             retry
           end
