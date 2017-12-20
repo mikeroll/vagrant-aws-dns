@@ -38,7 +38,7 @@ module VagrantPlugins
         end
 
         def remove_record(hosted_zone_id, record, type, value)
-          change_record(hosted_zone_id, record, type, value, 'DELETE')
+            change_record(hosted_zone_id, record, type, value, 'DELETE') rescue nil
         end
 
         private
