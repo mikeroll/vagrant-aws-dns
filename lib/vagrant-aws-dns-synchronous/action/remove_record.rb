@@ -9,7 +9,7 @@ module VagrantPlugins
         def call(env)
           super env do |hosted_zone_id, record, type, value|
             @aws.remove_record(hosted_zone_id, record, type, value)
-            @machine.ui.info("Removing dns record #{record}.")
+            env[:ui].info("Removing DNS record #{record}.")
           end
         end
 
