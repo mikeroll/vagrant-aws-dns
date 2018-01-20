@@ -66,6 +66,7 @@ Vagrant.configure("2") do |config|
 * `%w(HOSTED_ZONE_ID subdomain.domain.com CNAME domain2.com)` - This will set a record of type `subdomain.domain1.com. CNAME domain2.com.`.
 
 The ip may be omitted in which case the correct ip (private/public) will be chosen based on the type of the HOSTED_ZONE_ID.
+If the record type is CNAME and the value is not provided, the private/public AWS DNS name will be used instead. 
 
 ## FAQ
 

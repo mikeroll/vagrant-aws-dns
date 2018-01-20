@@ -18,17 +18,19 @@ module VagrantPlugins
           @aws = AwsDns::Util::AwsUtil.new(@machine.provider_config.access_key_id,
                                            @machine.provider_config.secret_access_key,
                                            @machine.provider_config.region)
-          public_ip = @aws.get_public_ip(@machine.id)
-          private_ip = @aws.get_private_ip(@machine.id)
+          instance = @aws.instance_info(@machine.id)
 
           @machine.config.dns.record_sets.each do |record_set|
             hosted_zone_id, record, type, value = record_set
+            zone_type = @aws.get_zone_type(hosted_zone_id)
 
-            if @aws.is_private_zone(hosted_zone_id)
-               yield hosted_zone_id, record, type, value || private_ip  if block_given?
+            default_value = if type == 'CNAME'
+              instance.public_send("#{zone_type}_dns_name")
             else
-               yield hosted_zone_id, record, type, value || public_ip  if block_given?
+              instance.public_send("#{zone_type}_ip_address")
             end
+
+            yield hosted_zone_id, record, type, value || default_value if block_given?
           end
 
           @app.call(env)
