@@ -20,16 +20,13 @@ module VagrantPlugins
           )
         end
 
-        def get_public_ip(instance_id)
-          @ec2.describe_instances({instance_ids: [instance_id]}).reservations[0].instances[0].public_ip_address
+        def instance_info(instance_id)
+          @ec2.describe_instances({instance_ids: [instance_id]}).reservations[0].instances[0]
         end
 
-        def get_private_ip(instance_id)
-          @ec2.describe_instances({instance_ids: [instance_id]}).reservations[0].instances[0].private_ip_address
-        end
-
-        def is_private_zone(hosted_zone_id)
-	  @route53.get_hosted_zone({id: '/hostedzone/' + hosted_zone_id}).hosted_zone.config.private_zone
+        def get_zone_type(hosted_zone_id)
+          zone = @route53.get_hosted_zone({id: '/hostedzone/' + hosted_zone_id})
+          zone.hosted_zone.config.private_zone ? :private : :public
         end
 
         def add_record(hosted_zone_id, record, type, value)
